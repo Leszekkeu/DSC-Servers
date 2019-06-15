@@ -1,0 +1,163 @@
+body{
+    margin: 0 auto !important;
+    background-image: url(discord-bg.png);
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Inconsolata', monospace;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+#container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+button{
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    height: 44px;
+    min-height: 44px;
+    min-width: 130px;
+    text-decoration: none solid #fff;
+    width: 80%;
+    transform-origin: 200px 22px;
+    user-select: none;
+    background-color: #7289da;
+    border: 0px none #fff;
+    border-radius: 3px;
+    outline: #fff none 0px;
+    padding: 2px 16px;
+    transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+}
+button:hover{
+    background-color: #6289da;
+}
+button.hide{
+    animation: hide .4s;
+}
+@keyframes hide{
+    0% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.1);
+        -webkit-transform: scale(0.1);;
+        -moz-transform: scale(0.1);
+        -ms-transform: scale(0.1);
+        -o-transform: scale(0.1);
+        opacity: 1;
+    }
+}
+#gc{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.g-recaptcha{
+    display: inline-block;
+}
+#verify-btn{
+    display: none;
+    margin-top: 10px;
+}
+.section{
+    margin-top: 50px;
+    text-align: center;
+    background-color: #36393f;
+    box-sizing: border-box;
+    width: 480px;
+    height: 383px;
+    min-height: auto;
+    min-width: auto;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px 0px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px 0px;
+}
+@media only screen and (max-width: 550px){
+    #section{
+        width: 350px;
+    }
+}
+@media only screen and (max-width: 400px){
+    .section{
+        background-color: unset;
+        box-shadow: none;
+    }
+}
+#img-logo{
+    width: 300px;
+}
+#join-info{
+    color: #72767d;
+    font-size: 18px;
+    font-weight: bold;
+}
+#general{
+    display: none;
+}
+#login-btn-show{
+    margin-bottom: 20px;
+}
+.text-inpt{
+    color: rgb(246, 246, 247);
+    height: 30px;
+    min-height: auto;
+    min-width: auto;
+    text-decoration: none solid rgb(246, 246, 247);
+    width: 400px;
+    user-select: none;
+    caret-color: rgb(246, 246, 247);
+    background: rgba(0, 0, 0, 0.1) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px 3px 3px 3px;
+    outline: rgb(246, 246, 247) none 0px;
+    padding: 10px;
+    transition: background-color 0.15s ease 0s, border 0.15s ease 0s;
+    text-align: center;
+    min-width: 130px;
+    width: 75%;
+    margin-bottom: 10px;
+}
+#login-cnt{
+    display: none;
+}
+#register-cnt{
+    display: none;
+}
+#logged-cnt{
+    display: none;
+}
+.error{
+    color: #f44336;
+    text-align: center;
+    font-size: 15px;
+}
+hr{
+    border: none;
+    border-top: 1px solid #36393f;
+}
+#add-ok{
+    display: none;
+}
+#ok-btn{
+    margin-top: 20px;
+}
