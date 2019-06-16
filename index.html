@@ -27,14 +27,17 @@
         <link rel="shortcut icon" href="https://www.leszekk.eu/img-other/discord/favicon.ico" type="image/x-icon">
         <link rel="icon" href="https://www.leszekk.eu/img-other/discord/favicon.ico" type="image/x-icon">
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Leszekk.eu" />
-        <meta property="og:title" content="ProGamers Discord" />
+        <meta property="og:site_name" content="Dsc-Servers.web.app" />
+        <meta property="og:title" content="Discord Servers" />
         <meta property="og:image" content="https://www.leszekk.eu/img-other/discord/discord-bg.png" />
-        <meta property="og:description" content="Join to Discord gaming server - ProGamers" />
-        <meta name="description" content="Join to Discord gaming server - ProGamers">
+        <meta property="og:description" content="Create Your own custom invite for Discord Server!" />
+        <meta name="description" content="Create Your own custom invite for Discord Server!">
         <meta name="google" content="notranslate" />
     </head>
     <body>
+        <div id="opacity">
+            <div id="preloader"></div>
+        </div>
         <div id="container">
             <noscript>Turn on JavaScript!</noscript>
             <!-- default -->
@@ -42,16 +45,15 @@
                 <div>
                     <img src="discord-logo.svg" alt="discord-logo" id="img-logo">
                 </div>
-                <p id="join-info">Add your Server here!</p>
+                <p class="join-info">Add your Server here!</p>
                 <h1>Discord Servers</h1>
                 <button id="login-btn-show"><b>Login</b></button>
                 <button id="register-btn-show"><b>Register</b></button>
             </div>
             <!-- login -->
             <div class="section" id="login-cnt">
-                <div>
-                    <img src="discord-logo.svg" alt="discord-logo" id="img-logo">
-                </div>
+                <img src="close.svg" class="back" alt="back" id="back-login">
+                <p class="join-info">Login to Leszekk.eu DSC Servers</p>
                 <h1>Login</h1>
                 <input class="text-inpt" id="email-inpt" type="email" placeholder="your e-mail"/>
                 <input class="text-inpt" id="password-inpt" type="password" placeholder="your password"/>
@@ -60,6 +62,7 @@
             </div>
             <!-- register -->
             <div class="section" id="register-cnt">
+                <img src="close.svg" class="back" alt="back" id="back-register">
                 <h1>Register</h1>
                 <input class="text-inpt" id="email-register" type="email" placeholder="your e-mail"/>
                 <input class="text-inpt" id="password-register" type="password" placeholder="your password"/>
@@ -69,14 +72,20 @@
             </div>
             <!-- logged -->
             <div class="section" id="logged-cnt">
+                <img src="sign-out.svg" class="back" alt="Sign Out" id="logout">
                 <h3 id="ays">Add Your Server!</h3>
+                <div id="add-info">
+                    <hr>
+                    <p>The Discord invitation link must be permanent!</p>
+                    <p>By adding a link, you agree to the <a target="_blank" href="https://discordapp.com/terms">terms</a>.</p>
+                    <button id="show-add"><b>I Agree</b></button>
+                </div>
                 <div id="add-inpts">
                     <input class="text-inpt" id="invite-inpt" type="text" placeholder="Invite URL"/>
                     <input class="text-inpt" id="url-invite-inpt" type="text" placeholder="Your custom url name"/>
                     <input class="text-inpt" id="name-invite-inpt" type="text" placeholder="Server's name"/>
                     <button id="add-btn"><b>Add</b></button>
                     <p class="error" id="add-err"></p>
-                    <button id="logout"><b>Logout</b></button>
                 </div>
                 <div id="add-ok">
                     <div id="generated-invite"></div>
@@ -88,12 +97,18 @@
                 <div>
                     <img src="discord-logo.svg" alt="discord-logo" id="img-logo">
                 </div>
-                <p id="join-info">Powered by Leszekk.eu</sp>
-                <h1>{Name}</h1>
-                <button id="join-btn"><b>Join</b></button>
-                <div id="gc">
-                    <div class="g-recaptcha" data-theme="dark" data-callback="verifyCallback" data-sitekey="6LfxCG8UAAAAANuIUtL27dhBY_MUaFj-O2nvCg7D"></div>
+                <div id="server-info">
+                    <p class="join-info">Powered by Leszekk.eu</sp>
+                    <h1 id="server-name"></h1>
+                    <button id="join-btn"><b>Join</b></button>
+                    <div id="gc">
+                        <div class="g-recaptcha" data-theme="dark" data-callback="verifyCallback" data-sitekey="6LfxCG8UAAAAANuIUtL27dhBY_MUaFj-O2nvCg7D"></div>
+                    </div>
                 </div>
+                <div id="server-err">
+                    <p class="error" id="info-err">Error!</p>
+                </div>
+
             </div>
         </div>
         <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>

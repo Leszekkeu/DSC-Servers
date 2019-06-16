@@ -4,6 +4,8 @@ $(function(){
     if(idparam){
         $("#login").hide();
         $("#general").show();
+        $("#opacity").show();
+        check();
     }
     $("#join-btn").click(function(){
         $("#join-btn").addClass("hide");
@@ -21,6 +23,23 @@ $(function(){
     //ok-btn
     $("#ok-btn").click(function(){
         location = location;
+    })
+    //back login
+    $("#back-login").click(function(){
+        $('#login-cnt').slideUp();
+        $("#login").delay(360).fadeIn();
+        resetlogin();
+    })
+    //back register
+    $("#back-register").click(function(){
+        $('#register-cnt').slideUp();
+        $("#login").delay(360).fadeIn();
+        resetregister();
+    })
+    //show add
+    $("#show-add").click(function(){
+        $("#add-info").fadeOut();
+        $("#add-inpts").delay(360).slideDown();
     })
     //add
     $("#add-btn").click(function(){
@@ -89,11 +108,15 @@ function resetadd(){
 // auth status changes
 auth.onAuthStateChanged(user => {
     if (user) {
-        resetlogin()
-        $("#login").hide();
-        $("#login-cnt").hide();
-        $("#register-cnt").hide();
-        $("#logged-cnt").fadeIn();
+        const params2 = new URLSearchParams(window.location.search);
+        const idparam2 = params2.get('id');
+        if(!idparam2){
+            resetlogin()
+            $("#login").hide();
+            $("#login-cnt").hide();
+            $("#register-cnt").hide();
+            $("#logged-cnt").fadeIn();
+        }   
     }
 });
 // register
@@ -122,7 +145,7 @@ $("#login-btn").click(function(){
     const emaillogin = document.getElementById("email-inpt").value;
     const passwordlogin = document.getElementById("password-inpt").value;
 
-    // log the user in
+    // login the user in
     auth.signInWithEmailAndPassword(emaillogin, passwordlogin).catch(function(error) {
         var errorMessage = error.message;
         document.getElementById("login-err").innerHTML = errorMessage;
@@ -136,3 +159,33 @@ $("#logout").click(function(){
     $("#logged-cnt").hide();
     $("#login").fadeIn();
 })
+function check(){
+    const params3 = new URLSearchParams(window.location.search);
+    const idparam3 = params3.get('id');
+
+    var docRef = db.collection("invites").doc(idparam3);
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            var data = doc.data();
+            var invitedb = data["invite"];
+            var namedb = data["name"];
+            var urldb = data["url"];
+            
+            $("#opacity").fadeOut();
+            $("#server-info").fadeIn();
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            document.getElementById("info-err").innerHTML = "Server not found!";
+            $("#opacity").fadeOut();
+            $("#server-err").fadeIn();
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+        $("#opacity").fadeOut();
+        $("#server-err").fadeIn();
+    });
+
+}
