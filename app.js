@@ -1,3 +1,4 @@
+var invitedb;
 $(function(){
     const params = new URLSearchParams(window.location.search);
     const idparam = params.get('id');
@@ -83,7 +84,7 @@ var verifyCallback = function(response) {
                 "success" : true,
             }
             if(data.success){
-                location.replace("https://discordapp.com/invite/jUnuPDc");
+                location.replace(namedb);
             }
         } 
     })
@@ -169,10 +170,10 @@ function check(){
         if (doc.exists) {
             console.log("Document data:", doc.data());
             var data = doc.data();
-            var invitedb = data["invite"];
+            invitedb = data["invite"];
             var namedb = data["name"];
-            var urldb = data["url"];
-            
+            document.getElementById("server-name").innerHTML = namedb;
+
             $("#opacity").fadeOut();
             $("#server-info").fadeIn();
         } else {
