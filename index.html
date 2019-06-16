@@ -49,6 +49,7 @@
                 <h1>Discord Servers</h1>
                 <button id="login-btn-show"><b>Login</b></button>
                 <button id="register-btn-show"><b>Register</b></button>
+                <img src="help-icon.svg" alt="reset pass" id="reset">
             </div>
             <!-- login -->
             <div class="section" id="login-cnt">
@@ -59,6 +60,20 @@
                 <input class="text-inpt" id="password-inpt" type="password" placeholder="your password"/>
                 <button id="login-btn"><b>Login</b></button>
                 <p class="error" id="login-err"></p>
+            </div>
+            <!-- password reset -->
+            <div class="section" id="reset-cnt">
+                <img src="close.svg" class="back" alt="back" id="back-reset">
+                <h2>Reset Password</h2>
+                <div id="reset-inpts">
+                    <input class="text-inpt" id="reset-inpt" type="email" placeholder="your e-mail"/>
+                    <button id="reset-btn"><b>reset</b></button>
+                    <p class="error" id="reset-err"></p>       
+                </div>
+                <div id="reset-sent">
+                    <hr>
+                    <h2>Sent!</h2>
+                </div>
             </div>
             <!-- register -->
             <div class="section" id="register-cnt">
@@ -79,6 +94,12 @@
                     <p>The Discord invitation link must be permanent!</p>
                     <p>By adding a link, you agree to the <a target="_blank" href="https://discordapp.com/terms">terms</a>.</p>
                     <button id="show-add"><b>I Agree</b></button>
+                    <div id="verify">
+                        <hr>
+                        <button id="send-verify"><b>Verify E-Mail</b></button>
+                        <button id="check-verify"><b>Check</b></button>
+                        <p class="error" id="verify-err"></p>
+                    </div>
                 </div>
                 <div id="add-inpts">
                     <input class="text-inpt" id="invite-inpt" type="text" placeholder="Invite URL"/>

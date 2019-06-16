@@ -137,13 +137,11 @@ button.hide{
     width: 75%;
     margin-bottom: 10px;
 }
-#login-cnt{
-    display: none;
-}
-#register-cnt{
-    display: none;
-}
-#logged-cnt{
+#reset-sent,
+#login-cnt,
+#register-cnt,
+#logged-cnt,
+#reset-cnt{
     display: none;
 }
 .error{
@@ -222,4 +220,17 @@ a:hover{
 }
 #info-err{
     font-size: 30px;
+}
+#reset{
+    width: 25px;
+    cursor: pointer;
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+}
+#show-add{
+    display: none;
+}
+#send-verify{
+    margin-bottom: 10px;
 }

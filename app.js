@@ -1,4 +1,5 @@
 var invitedb;
+var verified;
 $(function(){
     const params = new URLSearchParams(window.location.search);
     const idparam = params.get('id');
@@ -21,8 +22,16 @@ $(function(){
         $("#login").fadeOut();
         $("#register-cnt").delay(360).slideDown();
     })
+    $("#reset").click(function(){
+        $("#login").fadeOut();
+        $("#reset-cnt").delay(360).slideDown();
+    })
     //ok-btn
     $("#ok-btn").click(function(){
+        location = location;
+    })
+    //check-btn verify
+    $("#check-verify").click(function(){
         location = location;
     })
     //back login
@@ -37,17 +46,44 @@ $(function(){
         $("#login").delay(360).fadeIn();
         resetregister();
     })
+    //back reset
+    $("#back-reset").click(function(){
+        $('#reset-cnt').slideUp();
+        $("#login").delay(360).fadeIn();
+        resetreset();
+    })
     //show add
     $("#show-add").click(function(){
         $("#add-info").fadeOut();
         $("#add-inpts").delay(360).slideDown();
+    })
+    //reset password
+    $("#reset-btn").click(function(){
+        var resetinpt = document.getElementById("reset-inpt").value;
+        auth.sendPasswordResetEmail(resetinpt).then(function() {
+            document.getElementById("reset-err").innerHTML = "";
+            resetreset();
+            $("#reset-inpts").fadeOut();
+            $("#reset-sent").delay(360).slideDown();
+        }).catch(function(error) {
+            document.getElementById("reset-err").innerHTML = "Error!";
+        });
+    })
+    //verify email
+    $("#send-verify").click(function(){
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function() {
+            $("#send-verify").fadeOut();
+        }).catch(function(error) {
+            document.getElementById("verify-err").innerHTML = "Error!";
+        });
     })
     //add
     $("#add-btn").click(function(){
         var invite = document.getElementById("invite-inpt").value;
         var name = document.getElementById("name-invite-inpt").value;
         var url = document.getElementById("url-invite-inpt").value;
-        if(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]/.test(invite)){
+        if(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z0-9]/.test(invite)){
             if(name && url){
                 db.collection("invites").doc(url).set({
                     name: name,
@@ -106,12 +142,21 @@ function resetadd(){
     document.getElementById("name-invite-inpt").value = "";
     document.getElementById("url-invite-inpt").value = "";
 }
+//reset reset pass
+function resetreset(){
+    document.getElementById("reset-inpt").value = "";
+}
 // auth status changes
 auth.onAuthStateChanged(user => {
     if (user) {
         const params2 = new URLSearchParams(window.location.search);
         const idparam2 = params2.get('id');
         if(!idparam2){
+            verified = user.emailVerified;
+            if(verified === true){
+                $("#verify").hide();
+                $("#show-add").show();
+            }
             resetlogin()
             $("#login").hide();
             $("#login-cnt").hide();
@@ -168,7 +213,6 @@ function check(){
 
     docRef.get().then(function(doc) {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
             var data = doc.data();
             invitedb = data["invite"];
             var namedb = data["name"];
