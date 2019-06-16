@@ -156,6 +156,7 @@ hr{
 #add-ok{
     display: none;
 }
+#share-btn,
 #ok-btn{
     margin-top: 20px;
 }

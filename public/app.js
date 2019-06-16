@@ -1,5 +1,7 @@
 var invitedb;
+var namedb;
 var verified;
+var generatedurl;
 $(function(){
     const params = new URLSearchParams(window.location.search);
     const idparam = params.get('id');
@@ -78,6 +80,18 @@ $(function(){
             document.getElementById("verify-err").innerHTML = "Error!";
         });
     })
+    //share
+    $("#share-btn").click(function(){
+        if(navigator.share){
+            navigator.share({
+                title: "",
+                url: ""
+            }).catch(console.error);
+        }else{
+            copyToClipboard("#generated-invite");
+            copyanimation();
+        }
+    })
     //add
     $("#add-btn").click(function(){
         var invite = document.getElementById("invite-inpt").value;
@@ -94,7 +108,8 @@ $(function(){
                     console.log("Document successfully written!");
                     document.getElementById("add-err").innerHTML = "";
                     document.getElementById("ays").innerHTML = "Added!";
-                    document.getElementById("generated-invite").innerHTML = "https://dsc-servers.web.app/" + url;
+                    generatedurl = "https://dsc-servers.web.app/" + url;
+                    document.getElementById("generated-invite").innerHTML = generatedurl;
                     $("#add-inpts").slideUp();
                     $("#add-ok").delay(360).fadeIn();
                 })
@@ -215,7 +230,7 @@ function check(){
         if (doc.exists) {
             var data = doc.data();
             invitedb = data["invite"];
-            var namedb = data["name"];
+            namedb = data["name"];
             document.getElementById("server-name").innerHTML = namedb;
 
             $("#opacity").fadeOut();
@@ -233,4 +248,20 @@ function check(){
         $("#server-err").fadeIn();
     });
 
+}
+//copy function
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+//copy animation
+function copyanimation(){
+    $("#share-btn").html("<b>Copied!<b>");
+    setTimeout(copyanimation2, 3000);
+} 
+function copyanimation2(){
+    $("#share-btn").html("<b>Share<b>");
 }
