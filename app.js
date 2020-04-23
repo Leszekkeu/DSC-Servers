@@ -28,6 +28,9 @@ $(function(){
         $("#login").fadeOut();
         $("#reset-cnt").delay(360).slideDown();
     })
+    $("#verify-server").click(function(){
+        location = "https://leszekk.eu/dsc/verify.html";
+    })
     //ok-btn
     $("#ok-btn").click(function(){
         location = location;
@@ -81,28 +84,32 @@ $(function(){
         });
     })
     //share
-    $("#share-btn").click(function(){
+    var sharebtn = document.getElementById("share-btn");
+    sharebtn.addEventListener('click', event => {
         if(navigator.share){
             navigator.share({
-                title: "",
-                url: ""
+                title: namedb,
+                url: generatedurl
             }).catch(console.error);
         }else{
             copyToClipboard("#generated-invite");
             copyanimation();
         }
-    })
+    });
+
     //add
     $("#add-btn").click(function(){
         var invite = document.getElementById("invite-inpt").value;
         var name = document.getElementById("name-invite-inpt").value;
         var url = document.getElementById("url-invite-inpt").value;
+        url = url.toLowerCase();
         if(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z0-9]/.test(invite)){
             if(name && url){
                 db.collection("invites").doc(url).set({
                     name: name,
                     invite: invite,
-                    url: url
+                    url: url,
+                    verified: false
                 })
                 .then(function() {
                     console.log("Document successfully written!");
@@ -135,7 +142,7 @@ var verifyCallback = function(response) {
                 "success" : true,
             }
             if(data.success){
-                location.replace(namedb);
+                location.replace(invitedb);
             }
         } 
     })
@@ -168,15 +175,21 @@ auth.onAuthStateChanged(user => {
         const idparam2 = params2.get('id');
         if(!idparam2){
             verified = user.emailVerified;
-            if(verified === true){
-                $("#verify").hide();
-                $("#show-add").show();
+            var emailcheck = user.email;
+            if(emailcheck){
+                if(verified === true){
+                    $("#verify").hide();
+                    $("#show-add").show();
+                }
+                resetlogin()
+                $("#login").hide();
+                $("#login-cnt").hide();
+                $("#register-cnt").hide();
+                $("#logged-cnt").fadeIn();
+            }else{
+                firebase.auth().signOut();
             }
-            resetlogin()
-            $("#login").hide();
-            $("#login-cnt").hide();
-            $("#register-cnt").hide();
-            $("#logged-cnt").fadeIn();
+
         }   
     }
 });
@@ -222,8 +235,8 @@ $("#logout").click(function(){
 })
 function check(){
     const params3 = new URLSearchParams(window.location.search);
-    const idparam3 = params3.get('id');
-
+    var idparam3 = params3.get('id');
+    idparam3 = idparam3.toLowerCase();
     var docRef = db.collection("invites").doc(idparam3);
 
     docRef.get().then(function(doc) {
@@ -231,8 +244,16 @@ function check(){
             var data = doc.data();
             invitedb = data["invite"];
             namedb = data["name"];
+            verifieddb = data["verified"];
+            isBot = data["isBot"];
+            if(isBot === true){
+                $("#join-btn").text("Add Bot")
+            }
+            if(verifieddb === true){
+                $('#verified-img').show();
+            }
+            document.title = namedb + " - Discord";
             document.getElementById("server-name").innerHTML = namedb;
-
             $("#opacity").fadeOut();
             $("#server-info").fadeIn();
         } else {

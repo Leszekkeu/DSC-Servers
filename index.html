@@ -49,7 +49,9 @@
                 <h1>Discord Servers</h1>
                 <button id="login-btn-show"><b>Login</b></button>
                 <button id="register-btn-show"><b>Register</b></button>
-                <img src="help-icon.svg" alt="reset pass" id="reset">
+                <hr>
+                <button id="verify-server"><b>Verify Server</b></button>
+                <img src="help-icon.svg" alt="reset pass" class="reset" id="reset">
             </div>
             <!-- login -->
             <div class="section" id="login-cnt">
@@ -121,8 +123,8 @@
                 </div>
                 <div id="server-info">
                     <p class="join-info">Powered by Leszekk.eu</sp>
-                    <h1 id="server-name"></h1>
-                    <button id="join-btn"><b>Join</b></button>
+                    <h1><span class="tooltip"><img src="verified.svg" id="verified-img"><span class="tooltiptext">Verified by SMS</span></span><span id="server-name"></span></h1>
+                    <button id="join-btn">Join</button>
                     <div id="gc">
                         <div class="g-recaptcha" data-theme="dark" data-callback="verifyCallback" data-sitekey="6LfxCG8UAAAAANuIUtL27dhBY_MUaFj-O2nvCg7D"></div>
                     </div>

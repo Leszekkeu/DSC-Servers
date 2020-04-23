@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Discord - Verify</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script defer src="verify.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+        <script defer src='https://www.google.com/recaptcha/api.js'></script>
+        <link rel="apple-touch-icon" sizes="57x57" href="https://www.leszekk.eu/img-other/discord/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="https://www.leszekk.eu/img-other/discord/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="https://www.leszekk.eu/img-other/discord/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://www.leszekk.eu/img-other/discord/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="https://www.leszekk.eu/img-other/discord/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://www.leszekk.eu/img-other/discord/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="https://www.leszekk.eu/img-other/discord/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://www.leszekk.eu/img-other/discord/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.leszekk.eu/img-other/discord/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="https://www.leszekk.eu/img-other/discord/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.leszekk.eu/img-other/discord/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="https://www.leszekk.eu/img-other/discord/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.leszekk.eu/img-other/discord/favicon-16x16.png">
+        <meta name="msapplication-TileImage" content="https://www.leszekk.eu/img-other/discord/ms-icon-144x144.png">
+        <link rel="shortcut icon" href="https://www.leszekk.eu/img-other/discord/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="https://www.leszekk.eu/img-other/discord/favicon.ico" type="image/x-icon">
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Dsc-Servers.web.app" />
+        <meta property="og:title" content="Discord Servers" />
+        <meta property="og:image" content="https://www.leszekk.eu/img-other/discord/discord-bg.png" />
+        <meta property="og:description" content="Create Your own custom invite for Discord Server!" />
+        <meta name="description" content="Create Your own custom invite for Discord Server!">
+        <meta name="google" content="notranslate" />
+    </head>
+    <body>
+        <div id="opacity">
+            <div id="preloader"></div>
+        </div>
+        <div id="container">
+            <noscript>Turn on JavaScript!</noscript>
+            <!-- default -->
+            <div class="section" id="login">
+                <img src="close.svg" class="back" alt="back" id="back-verify-btn">
+                <div>
+                    <img src="discord-logo.svg" alt="discord-logo" id="img-logo">
+                </div>
+                <p class="join-info">Verify Your Server Here!</p>
+                <h1><img src="verified.svg" id="verified-img2">Your Server</h1>
+                <button id="login-btn-show"><b>Verify</b></button>
+            </div>
+            <!-- phone -->
+            <div class="section" id="login-cnt">
+                <p class="join-info">Please Type Your Phone Number</p>
+                <h1>Verify</h1>
+                <form id="sign-in-form" action="#">
+                    <input class="text-inpt" id="phone-inpt" type="tel" pattern="\+[0-9\s\-\(\)]+" placeholder="your phone number with country code"/>
+                    <div id="recaptcha-container"></div>
+                    <button type="submit" id="send-btn"><b>send</b></button>
+                    <p class="error" id="send-err"></p>
+                </form>
+            </div>
+            <!-- code -->
+            <div class="section" id="code-cnt">
+                <p class="join-info">Please Type Your Code From SMS</p>
+                <h1>Verify</h1>
+                <input class="text-inpt" id="code-inpt" type="text" placeholder="your code" maxlength="6"/>
+                <button id="code-btn"><b>ok</b></button>
+                <p class="error" id="code-err"></p>
+            </div>
+            <!-- add -->
+            <div class="section" id="add-cnt">
+                <img src="sign-out.svg" class="back" alt="Sign Out" id="logout">
+                <p class="join-info">dsc-servers.web.app/custom-name</p>
+                <h1>Verify</h1>
+                <input class="text-inpt" id="name-inpt" type="text" placeholder="your custom name"/>
+                <button id="add-btn"><b>ok</b></button>
+                <p class="error" id="add-err"></p>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyBvIXaf1TUHoEnXfN_bY1yR6wUTljoC7NA",
+                authDomain: "dsc-servers.firebaseapp.com",
+                databaseURL: "https://dsc-servers.firebaseio.com",
+                projectId: "dsc-servers",
+                storageBucket: "dsc-servers.appspot.com",
+                messagingSenderId: "257518455749",
+                appId: "1:257518455749:web:24f477a425d127f9"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+        </script>
+    </body>  
+</html>

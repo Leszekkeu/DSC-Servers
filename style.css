@@ -72,6 +72,7 @@ button.hide{
     margin-right: auto;
     text-align: center;
 }
+#recaptcha-container,
 .g-recaptcha{
     display: inline-block;
 }
@@ -111,6 +112,9 @@ button.hide{
     font-size: 18px;
     font-weight: bold;
 }
+#join-btn{
+    font-weight: bold;
+}
 #general{
     display: none;
 }
@@ -143,6 +147,9 @@ button.hide{
 #logged-cnt,
 #reset-cnt{
     display: none;
+}
+#login{
+    height: 460px;
 }
 .error{
     color: #f44336;
@@ -222,7 +229,7 @@ a:hover{
 #info-err{
     font-size: 30px;
 }
-#reset{
+.reset{
     width: 25px;
     cursor: pointer;
     position: fixed;
@@ -234,4 +241,48 @@ a:hover{
 }
 #send-verify{
     margin-bottom: 10px;
+}
+#verified-img{
+    display: none;
+    height: 50px;
+    position: relative;
+    top: 10px; 
+    cursor: pointer;
+}
+#verified-img2{
+    height: 50px;
+    position: relative;
+    top: 10px; 
+}
+#code-cnt,
+#add-cnt{
+    display: none;
+}
+#verify-server{
+    margin-top: 25px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 90%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 15px;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
